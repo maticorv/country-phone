@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CountryRepository } from './country.repository';
-var geoip = require('./node_modules/geoip-country');
+const geoip = require('../node_modules/geoip-country');
 
 @Injectable()
 export class AppService {
