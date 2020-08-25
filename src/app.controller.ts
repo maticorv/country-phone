@@ -11,12 +11,9 @@ export class AppController {
 
   @Get()
   getPhoneCode(
-    @Headers() headers: Headers,
-    @Ip() ip,
+    @Headers('x-forwarded-for') ip: string,
     @Req() request: Request,
   ): Promise<CountryResponseDTO> {
-    console.log('request :>> ', request);
-    console.log('headers :>> ', headers);
     return this.appService.getPhoneCode(ip);
   }
 }
