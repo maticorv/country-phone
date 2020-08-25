@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CountryRepository } from './country.repository';
+import { Country } from './country.entity';
 const geoip = require('../node_modules/geoip-country');
 
 @Injectable()
@@ -11,16 +12,16 @@ export class AppService {
     ){
 
   }
-  async getPhoneCode(ip): Promise<number> {
+  async getPhoneCode(ip): Promise<Country> {
     if (ip.substr(0, 7) == "::ffff:" || ip.substr(0, 3) == "::1") {
       ip = ip.substr(7)
       const iso = geoip.lookup('191.82.126.180').country;
 
-      const country = (await this.countryRepository.getPhoneCodeByIso(iso)).phonecode;
+      const country = (await this.countryRepository.getPhoneCodeByIso(iso));
       return country;
     }
     const iso = geoip.lookup(ip).country;
-    const country = (await this.countryRepository.getPhoneCodeByIso(iso)).phonecode;
+    const country = (await this.countryRepository.getPhoneCodeByIso(iso));
     return country;
   }
 }

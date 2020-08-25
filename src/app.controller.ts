@@ -1,5 +1,6 @@
 import { Controller, Get, Ip } from '@nestjs/common';
 import { AppService } from './app.service';
+import { Country } from './country.entity';
 
 @Controller()
 export class AppController {
@@ -8,7 +9,7 @@ export class AppController {
   @Get()
   getPhoneCode(
     @Ip() ip
-  ): Promise<number> {
+  ): Promise<Country> {
     return this.appService.getPhoneCode(ip);
   }
 }
