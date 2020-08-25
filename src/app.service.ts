@@ -14,6 +14,7 @@ export class AppService {
 
   }
   async getPhoneCode(ip: string): Promise<CountryResponseDTO> {
+    console.log(ip);
     ip = ip.substr(7)
     const iso = geoip.lookup(ip).country;
     const country = (await this.countryRepository.getPhoneCodeByIso(iso));
