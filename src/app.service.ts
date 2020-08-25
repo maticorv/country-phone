@@ -16,11 +16,11 @@ export class AppService {
       ip = ip.substr(7)
       // const iso = geoip.lookup('191.82.126.180').country;
 
-      const country = (await this.countryRepository.getPhoneCodeByIso('191.82.126.180')).phonecode;
+      const country = (await this.countryRepository.getPhoneCodeByIso('AR')).phonecode;
       return country;
     }
     // const iso = geoip.lookup(ip).country;
-    const country = (await this.countryRepository.getPhoneCodeByIso('191.82.126.180')).phonecode;
+    const country = (await this.countryRepository.getPhoneCodeByIso('AR')).phonecode;
     return country;
   }
 }
