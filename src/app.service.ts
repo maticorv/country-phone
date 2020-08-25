@@ -14,22 +14,7 @@ export class AppService {
 
   }
   async getPhoneCode(ip: string): Promise<CountryResponseDTO> {
-    if (ip.substr(0, 7) == "::ffff:" || ip.substr(0, 3) == "::1") {
-      // ip = ip.substr(7)
-      const iso = geoip.lookup('191.82.126.180').country;
-
-      const country = (await this.countryRepository.getPhoneCodeByIso(iso));
-      return {
-        'id': country.id,
-        'iso': country.iso,
-        'iso3': country.iso3,
-        'name': country.name,
-        'nicename': country.nicename,
-        'numcode': country.numcode,
-        'phonecode': country.phonecode,
-        'ip': ip,
-      };
-    }
+    ip = ip.substr(7)
     const iso = geoip.lookup(ip).country;
     const country = (await this.countryRepository.getPhoneCodeByIso(iso));
     return {
