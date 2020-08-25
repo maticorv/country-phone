@@ -1,7 +1,9 @@
-import { Controller, Get, Ip } from '@nestjs/common';
+import { Controller, Get, Ip, Req, Headers} from '@nestjs/common';
 import { AppService } from './app.service';
 import { Country } from './country.entity';
 import { CountryResponseDTO } from './country-response.dto';
+import { Request } from 'express';
+
 
 @Controller()
 export class AppController {
@@ -9,8 +11,12 @@ export class AppController {
 
   @Get()
   getPhoneCode(
-    @Ip() ip
+    @Headers() headers: Headers,
+    @Ip() ip,
+    @Req() request: Request,
   ): Promise<CountryResponseDTO> {
+    console.log('request :>> ', request);
+    console.log('headers :>> ', headers);
     return this.appService.getPhoneCode(ip);
   }
 }

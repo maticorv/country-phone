@@ -3,6 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CountryRepository } from './country.repository';
 import { Country } from './country.entity';
 import { CountryResponseDTO } from './country-response.dto';
+// import { geoip } from 'geoip-country';
+
 const geoip = require('../node_modules/geoip-country');
 
 @Injectable()
@@ -14,8 +16,6 @@ export class AppService {
 
   }
   async getPhoneCode(ip: string): Promise<CountryResponseDTO> {
-    console.log(ip);
-    ip = ip.substr(7)
     const iso = geoip.lookup(ip).country;
     const country = (await this.countryRepository.getPhoneCodeByIso(iso));
     return {
