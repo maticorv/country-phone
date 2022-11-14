@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CountryRepository } from './country.repository';
 import { ConfigModule } from '@nestjs/config';
+import { Country } from './country.entity';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ConfigModule } from '@nestjs/config';
       entities: ["dist/**/*.entity{.ts,.js}"],
     }),
     ConfigModule.forRoot(),
+    TypeOrmModule.forFeature([Country]),
 ],
   controllers: [AppController],
   providers: [AppService],

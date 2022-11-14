@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CountryRepository } from './country.repository';
 import { Country } from './country.entity';
 import { CountryResponseDTO } from './country-response.dto';
+import { Repository } from 'typeorm';
 // import { geoip } from 'geoip-country';
 
 const geoip = require('../node_modules/geoip-country');
@@ -10,8 +11,8 @@ const geoip = require('../node_modules/geoip-country');
 @Injectable()
 export class AppService {
   constructor(
-    @InjectRepository(CountryRepository)
-    private countryRepository: CountryRepository
+    @InjectRepository(Country)
+    private country: Repository<Country>,
     ){
 
   }
@@ -20,7 +21,7 @@ export class AppService {
       ip = '190.3.65.38'
     }
     const iso = geoip.lookup(ip).country;
-    const country = (await this.countryRepository.getPhoneCodeByIso(iso));
+    const country = (await this.country.findOneBy({iso: iso}));
     return {
       'id': country.id,
       'iso': country.iso,
